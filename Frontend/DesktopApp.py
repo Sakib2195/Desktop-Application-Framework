@@ -93,17 +93,37 @@ class FirstApp(Ui_MainWindow):
 
     
     def ExitApp(self):
+        with open('config.json', 'r') as f:
+            config = json.load(f)
 
         filelist_INPUT = glob.glob(os.path.join(self.input_path, "*"))
         for f in filelist_INPUT:
             os.remove(f)
         
-        filelist_output_data = glob.glob(os.path.join(self.output_path, "*"))
+        filelist_output_data = glob.glob(os.path.join(config["PATHS"]["VOLUME_PATH_MAC"]+'alpha_miner/output_data/', "*"))
         for f in filelist_output_data:
             os.remove(f)
+        filelist_output_data1 = glob.glob(os.path.join(config["PATHS"]["VOLUME_PATH_MAC"]+'dfg/output_data/', "*"))
+        for f in filelist_output_data1:
+            os.remove(f)
+        filelist_output_data2 = glob.glob(os.path.join(config["PATHS"]["VOLUME_PATH_MAC"]+'heuristic_miner/output_data/', "*"))
+        for f in filelist_output_data2:
+            os.remove(f)
+        filelist_output_data3 = glob.glob(os.path.join(config["PATHS"]["VOLUME_PATH_MAC"]+'inductive_miner/output_data/', "*"))
+        for f in filelist_output_data3:
+            os.remove(f)
         
-        filelist_input_data = glob.glob(os.path.join(self.algo_input_path, "*"))
+        filelist_input_data = glob.glob(os.path.join(config["PATHS"]["VOLUME_PATH_MAC"]+'alpha_miner/input_data/', "*"))
         for f in filelist_input_data:
+            os.remove(f)
+        filelist_input_data1 = glob.glob(os.path.join(config["PATHS"]["VOLUME_PATH_MAC"]+'dfg/input_data/', "*"))
+        for f in filelist_input_data1:
+            os.remove(f)
+        filelist_input_data2 = glob.glob(os.path.join(config["PATHS"]["VOLUME_PATH_MAC"]+'heuristic_miner/input_data/', "*"))
+        for f in filelist_input_data2:
+            os.remove(f)
+        filelist_input_data3 = glob.glob(os.path.join(config["PATHS"]["VOLUME_PATH_MAC"]+'inductive_miner/input_data/', "*"))
+        for f in filelist_input_data3:
             os.remove(f)
         
         MainWindow.close()
@@ -169,6 +189,7 @@ class FirstApp(Ui_MainWindow):
         item =self.listAlgorithm.currentItem()
         self.algo_name_selected = str(item.text())
         print("The selected current item is",self.algo_name_selected)
+        self.buttonApplyAlgorithm.setEnabled(True)
         
         with open('config.json','r') as f:
             config = json.load(f)
@@ -193,7 +214,7 @@ class FirstApp(Ui_MainWindow):
     def selectLog(self):
         if ".xes" in self.log_name_selected:
             self.tabWidget.setCurrentIndex(1)
-            self.buttonApplyAlgorithm.setEnabled(True)
+            self.buttonApplyAlgorithm.setEnabled(False)
             
             
             print("selected_log_name",self.log_name_selected)
