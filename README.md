@@ -11,5 +11,5 @@
  2. Goto path-to-folder/Desktop-Application-Framework/Frontend
  3. Run command "pip install -r requirements.txt"
  4. Run command "python algorithms_installer.py"
- 5. Run command "python desktopframework.py"
+ 5. Run command "python DesktopApp.py"
  
