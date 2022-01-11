@@ -3,7 +3,7 @@
  Prerequisite:
  User needs to install the following:
  1. Python 3.8 or above
- 2  Docker Environment
+ 2. Docker Environment
  3. In window install graphiz from graphiz webiste: https://graphviz.org/download/
  
  Follow these steps.
@@ -12,4 +12,3 @@
  3. Run command "pip install -r requirements.txt"
  4. Run command "python algorithms_installer.py"
  5. Run command "python DesktopApp.py"
- 
