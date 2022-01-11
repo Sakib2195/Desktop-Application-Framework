@@ -2,8 +2,8 @@
 
  Prerequisite:
  User needs to install the following:
- 1.Python 3.8 or above
- 2.Docker Environment
+ 1. Python 3.8 or above
+ 2  Docker Environment
  3. In window install graphiz from graphiz webiste: https://graphviz.org/download/
  
  Follow these steps.
