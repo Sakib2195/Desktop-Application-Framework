@@ -42,8 +42,13 @@ class Ui_MainWindow(object):
         self.buttonSelectDocker.setGeometry(QtCore.QRect(30, 290, 150, 41))
         self.buttonSelectDocker.setObjectName("buttonSelectDocker")
 
-        # display button
+        
 
+        self.buttonExport = QtWidgets.QPushButton(self.tab)
+        self.buttonExport.setGeometry(QtCore.QRect(500, 330, 150, 41))
+        self.buttonExport.setObjectName("buttonExport")
+
+        # display button
         self.buttonDisplay = QtWidgets.QPushButton(self.tab)
         self.buttonDisplay.setGeometry(QtCore.QRect(500, 290, 150, 41))
         self.buttonDisplay.setObjectName("buttonDisplay")
@@ -66,9 +71,7 @@ class Ui_MainWindow(object):
         self.buttonApplyAlgorithm.setGeometry(QtCore.QRect(50, 300, 221, 51))
         self.buttonApplyAlgorithm.setObjectName("buttonApplyAlgorithm")
 
-        self.buttonExport = QtWidgets.QPushButton(self.tab_2)
-        self.buttonExport.setGeometry(QtCore.QRect(400, 300, 80, 51))
-        self.buttonExport.setObjectName("buttonExport")
+       
         
         self.tabWidget.addTab(self.tab_2, "")
         
@@ -98,12 +101,12 @@ class Ui_MainWindow(object):
         self.buttonExit.setText(_translate("MainWindow", "Quit Application"))
         self.buttonImportlog.setText(_translate("MainWindow", "Import Event Log"))
         self.buttonSelectDocker.setText(_translate("MainWindow", "Select Docker File"))
-        self.buttonDisplay.setText(_translate("MainWindow", "Display"))
+        self.buttonDisplay.setText(_translate("MainWindow", "Visualize"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Selection of Event Log"))
         self.buttonApplyAlgorithm.setText(_translate("MainWindow", "Apply the selected Algorithm"))
-        self.buttonExport.setText(_translate("MainWindow", "Export"))
+        self.buttonExport.setText(_translate("MainWindow", "Download"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Select Algorithm"))
-
+        
     
 
 if __name__ == "__main__":

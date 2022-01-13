@@ -41,7 +41,17 @@
                              "it is easy to represent metrics like frequency (counting the number of times the source event/activity is followed by the target event/activity) and performance\n",
                              "(some aggregation, for example, the mean, of time inter-lapsed between the two events/activities)"
             ]
-        } 
+        },
+        "TOKEN_BASED_REPLAY": {
+            "INPUT" : ["Log file(.xes file format)","Petri Net File(.pnml file format)"],
+            "INPUT_FORMAT" : [".xes",".pnml"],
+            "OUTPUT" : "Resultant PDF(.pdf file format)",
+            "DESCRIPTION" : ["can be used with any Petri net model with unique visible transitions and hidden transitions. When a visible transition needs to be fired and \n",
+                "not all places in the preset are provided with the correct number of tokens, starting from the current marking it is checked if for some place there is a \n",
+                "sequence of hidden transitions that could be fired in order to enable the visible transition. The hidden transitions are then fired and a marking that permits to enable the visible transition is reached."
+            ]
+        }
+
     
     } 
     

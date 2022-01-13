@@ -1,6 +1,8 @@
 import pickle
 import json
 import glob
+import os
+import webbrowser
 from pm4py.visualization.petri_net import visualizer as pn_visualizer
 from pm4py.objects.petri_net.importer import importer as pnml_importer
 from pm4py.visualization.dfg import visualizer as dfg_visualization
@@ -28,3 +30,8 @@ class DisplayManager:
             parameters = {dfg_visualization.Variants.PERFORMANCE.value.Parameters.FORMAT: "png"}
             gviz = dfg_visualization.apply(output, log=log_direc, variant=dfg_visualization.Variants.PERFORMANCE, parameters=parameters)
             dfg_visualization.view(gviz)
+
+    def display_pdf(self,algo_name):
+        file_path = glob.glob(self.config["PATHS"]["VOLUME_PATH_MAC"]+algo_name+"/output_data/*.pdf")
+        webbrowser.open(r'file:///{file_name}'.format(file_name=file_path[0]))
+        

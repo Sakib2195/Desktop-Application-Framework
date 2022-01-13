@@ -21,6 +21,9 @@ class DockerManager:
 
     
     def run_algorithm(self, algo_name, log_name , direc_name):
+        print("algo_name",algo_name)
+        print("log_name",log_name)
+        print("direc_name",direc_name)
         with open('config.json', 'r') as f:
             config = json.load(f)
         print("algo_name: ",algo_name)
@@ -36,12 +39,15 @@ class DockerManager:
         host_config = self.client.api.create_host_config(
                             binds=volume_bindings
         )
+        command = " ".join(log_name)
+        print(type(log_name))
+        # print("command",command)
 
         container = self.client.api.create_container(
                             image= algo_name,
                             volumes=volumes,
                             host_config=host_config,
-                            command= log_name
+                            command= command
         ) 
 
         try:
@@ -61,6 +67,8 @@ class DockerManager:
                 display_manager.display_dfg(algo_name, log_direc)
             elif ".pnml" in files:
                 display_manager.display_petrinet(algo_name)
+            elif ".pdf" in files :
+                display_manager.display_pdf(algo_name)
 
         
 
