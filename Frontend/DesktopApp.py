@@ -98,6 +98,7 @@ class FirstApp(Ui_MainWindow):
 
     def printItemText(self):
         self.items = self.listImportedLog.selectedItems()
+        self.total_items = []
         for i in range(len(self.items)):
             self.total_items.append(str(self.listImportedLog.selectedItems()[i].text()))
        
@@ -200,7 +201,7 @@ class FirstApp(Ui_MainWindow):
 
         else:
             msgBox = QMessageBox()
-            msgBox.setText("Select a petrinet or a .pickle file!")
+            msgBox.setText("Select a petrinet , .pickle or .pdf file!")
             msgBox.exec()
             
 
@@ -226,17 +227,18 @@ class FirstApp(Ui_MainWindow):
             config = json.load(f)
        
         
+
         if self.algo_name_selected == "alpha_miner":
-            self.label_showAlgoSummary.setText("INPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['ALPHA_MINER']['INPUT'])+"\nOUTPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['ALPHA_MINER']['OUTPUT'])+"\nDESCRIPTION:\n"+"".join(config['ALGORITHMS']['ALPHA_MINER']['DESCRIPTION']))
+            self.label_showAlgoSummary.setText("           Item Selected is Alpha Miner \n\n"+"INPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['ALPHA_MINER']['INPUT'])+"\nOUTPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['ALPHA_MINER']['OUTPUT'])+"\nDESCRIPTION:\n"+"".join(config['ALGORITHMS']['ALPHA_MINER']['DESCRIPTION']))
         elif self.algo_name_selected == "inductive_miner":
-              self.label_showAlgoSummary.setText("INPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['INDUCTIVE_MINER']['INPUT'])+"\nOUTPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['INDUCTIVE_MINER']['OUTPUT'])+"\nDESCRIPTION:\n"+"".join(config['ALGORITHMS']['INDUCTIVE_MINER']['DESCRIPTION']))
+              self.label_showAlgoSummary.setText("           Item Selected is Inductive Miner \n\n"+"INPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['INDUCTIVE_MINER']['INPUT'])+"\nOUTPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['INDUCTIVE_MINER']['OUTPUT'])+"\nDESCRIPTION:\n"+"".join(config['ALGORITHMS']['INDUCTIVE_MINER']['DESCRIPTION']))
         elif self.algo_name_selected == "heuristic_miner":
-              self.label_showAlgoSummary.setText("INPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['HEURISTIC_MINER']['INPUT'])+"\nOUTPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['HEURISTIC_MINER']['OUTPUT'])+"\nDESCRIPTION:\n"+"".join(config['ALGORITHMS']['HEURISTIC_MINER']['DESCRIPTION']))
+              self.label_showAlgoSummary.setText("           Item Selected is Heuristic Miner \n\n"+"INPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['HEURISTIC_MINER']['INPUT'])+"\nOUTPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['HEURISTIC_MINER']['OUTPUT'])+"\nDESCRIPTION:\n"+"".join(config['ALGORITHMS']['HEURISTIC_MINER']['DESCRIPTION']))
         elif self.algo_name_selected == "dfg":
-               self.label_showAlgoSummary.setText("INPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['DFG']['INPUT'])+"\nOUTPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['DFG']['OUTPUT'])+"\nDESCRIPTION:\n"+"".join(config['ALGORITHMS']['DFG']['DESCRIPTION']))
+               self.label_showAlgoSummary.setText("           Item Selected is DFG \n\n"+"INPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['DFG']['INPUT'])+"\nOUTPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['DFG']['OUTPUT'])+"\nDESCRIPTION:\n"+"".join(config['ALGORITHMS']['DFG']['DESCRIPTION']))
         elif self.algo_name_selected == "token_based_replay":
-               self.label_showAlgoSummary.setText("INPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['TOKEN_BASED_REPLAY']['INPUT'])+"\nOUTPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['TOKEN_BASED_REPLAY']['OUTPUT'])+"\nDESCRIPTION:\n"+"".join(config['ALGORITHMS']['TOKEN_BASED_REPLAY']['DESCRIPTION']))
-      
+               self.label_showAlgoSummary.setText("           Item Selected is Token Based Replay \n\n"+"INPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['TOKEN_BASED_REPLAY']['INPUT'])+"\nOUTPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['TOKEN_BASED_REPLAY']['OUTPUT'])+"\nDESCRIPTION:\n"+"".join(config['ALGORITHMS']['TOKEN_BASED_REPLAY']['DESCRIPTION']))
+     
       
     def selectLog(self):
 
