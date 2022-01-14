@@ -11,6 +11,7 @@ import sys
 import webbrowser
 import os
 import pandas as pd
+from PyQt5.QtGui import QColor
 from pm4py.objects.log.importer.xes import importer as xes_importer
 import os, shutil
 from pm4py.visualization.petri_net import visualizer as pn_visualizer
@@ -45,6 +46,7 @@ class FirstApp(Ui_MainWindow):
 
         self.dest = ''
         self.direcname =''
+        self.total_items = []
         self.tabWidget.setTabEnabled(2,False);
         dock_manager = DockerManager()
         
@@ -67,7 +69,7 @@ class FirstApp(Ui_MainWindow):
     def logload(self):
         with open('config.json', 'r') as f:
             config = json.load(f)
-        filename=QtWidgets.QFileDialog.getOpenFileName(None, "Window name", "", "XES files (*.xes)")
+        filename=QtWidgets.QFileDialog.getOpenFileName(None, "Select .XES or .PNML file  ", "", "XES files (*.xes *.pnml)")
         self.direcname = filename[0]
         self.log_name = QFileInfo(self.direcname).fileName()
         print(self.log_name)
@@ -96,7 +98,6 @@ class FirstApp(Ui_MainWindow):
 
     def printItemText(self):
         self.items = self.listImportedLog.selectedItems()
-        self.total_items = []
         for i in range(len(self.items)):
             self.total_items.append(str(self.listImportedLog.selectedItems()[i].text()))
        
@@ -216,6 +217,7 @@ class FirstApp(Ui_MainWindow):
     def algo_item_clicked(self):
 
         item =self.listAlgorithm.currentItem()
+        
         self.algo_name_selected = str(item.text())
         print("The selected current item is",self.algo_name_selected)
         self.buttonApplyAlgorithm.setEnabled(True)
@@ -234,59 +236,10 @@ class FirstApp(Ui_MainWindow):
                self.label_showAlgoSummary.setText("INPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['DFG']['INPUT'])+"\nOUTPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['DFG']['OUTPUT'])+"\nDESCRIPTION:\n"+"".join(config['ALGORITHMS']['DFG']['DESCRIPTION']))
         elif self.algo_name_selected == "token_based_replay":
                self.label_showAlgoSummary.setText("INPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['TOKEN_BASED_REPLAY']['INPUT'])+"\nOUTPUT PARAMETERS:\n"+"".join(config['ALGORITHMS']['TOKEN_BASED_REPLAY']['OUTPUT'])+"\nDESCRIPTION:\n"+"".join(config['ALGORITHMS']['TOKEN_BASED_REPLAY']['DESCRIPTION']))
-            
-    def showLogSummary(self):
-        log = xes_importer.apply(self.direcname)
-        print(log[0])
-        self.labelLogSummary.setText(str(log[0]))
-        self.labelLogSummary.setWordWrap(True)
-
-    def disable_algorithm(self):
-        
-        if len(self.total_items)==2:
-    
-            for x in range(self.listAlgorithm.count()):
-                self.listAlgorithm.item(x).setFlags(Qt.ItemIsEnabled)
-                
-
-            items = self.listAlgorithm.findItems("token_based_replay",Qt.MatchContains)
-            # items = self.listAlgorithm.findItems("alpha_miner",Qt.MatchContains)
-            if len(items) > 0:
-
-                 for item in items:
-                    print("row number of found item =",self.listAlgorithm.row(item))
-                    self.checkrow= self.listAlgorithm.row(item)
-                    print("text of found item =",item.text() )
-            
-            for x in range(self.listAlgorithm.count()):
-                if(x==self.checkrow):
-                    print("Alpha Miner Enabled")
-                else:
-                    self.listAlgorithm.item(x).setFlags(Qt.NoItemFlags)
-            
-        elif len(self.total_items)==1:
-
-            for x in range(self.listAlgorithm.count()):
-                self.listAlgorithm.item(x).setFlags(Qt.ItemIsEnabled)
-                
-            items2 = self.listAlgorithm.findItems("token_based_replay",Qt.MatchContains)
-            # items2 = self.listAlgorithm.findItems("alpha_miner",Qt.MatchContains)
-            if len(items2) > 0:
-
-                 for item2 in items2:
-                    print("row number of found item =",self.listAlgorithm.row(item2))
-                    self.checkrow2= self.listAlgorithm.row(item2)
-                    print("text of found item =",item2.text() )
-            
-            for x in range(self.listAlgorithm.count()):
-                if(x==self.checkrow2):
-                    self.listAlgorithm.item(x).setFlags(Qt.NoItemFlags)
-                else:
-                    print("Alpha Miner Disabled")
-        else: 
-            print("Select one or two files")
-
+      
+      
     def selectLog(self):
+
         self.disable_algorithm()
         print("total items selected",self.total_items)
         print("len of total items selected",len(self.total_items))
@@ -307,10 +260,10 @@ class FirstApp(Ui_MainWindow):
             
             if ".pnml" in self.item1 and ".xes" in self.item2:
                 self.tabWidget.setCurrentIndex(1)
-                self.buttonApplyAlgorithm.setEnabled(True)
+                self.buttonApplyAlgorithm.setEnabled(False)
             elif ".xes" in self.item1 and ".pnml" in self.item2:
                 self.tabWidget.setCurrentIndex(1)
-                self.buttonApplyAlgorithm.setEnabled(True)
+                self.buttonApplyAlgorithm.setEnabled(False)
             else:
                 msgBox = QMessageBox()
                 msgBox.setText("Select an .xes and .pnml file")
@@ -322,7 +275,7 @@ class FirstApp(Ui_MainWindow):
           
             if ".xes" in self.only_item_selected:
                 self.tabWidget.setCurrentIndex(1)
-                self.buttonApplyAlgorithm.setEnabled(True)
+                self.buttonApplyAlgorithm.setEnabled(False)
                 print("selected_log_name",self.only_item_selected)
                 self.input_file_path = self.input_path+self.only_item_selected
                 print("INPUT File Path",self.input_file_path)
@@ -337,10 +290,63 @@ class FirstApp(Ui_MainWindow):
                 msgBox = QMessageBox()
                 msgBox.setText("Please Select .xes file, if you are selecting only one file")
                 msgBox.exec()
+        elif(len(self.total_items) == 0):
+            msgBox = QMessageBox()
+            msgBox.setText("Select a file!")
+            msgBox.exec()
         else:
             msgBox = QMessageBox()
             msgBox.setText("Select only two files!")
             msgBox.exec()
+
+          
+    def showLogSummary(self):
+        log = xes_importer.apply(self.direcname)
+        print(log[0])
+        self.labelLogSummary.setText(str(log[0]))
+        self.labelLogSummary.setWordWrap(True)
+
+    def disable_algorithm(self):
+        
+        if len(self.total_items)==1:
+            for x in range(self.listAlgorithm.count()):
+                self.listAlgorithm.item(x).setFlags(Qt.ItemIsEnabled)
+                
+                
+                
+
+                
+            items2 = self.listAlgorithm.findItems("token_based_replay",Qt.MatchContains)
+            if len(items2) > 0:
+
+                 for item2 in items2:
+                    print("row number of found item =",self.listAlgorithm.row(item2))
+                    self.checkrow2= self.listAlgorithm.row(item2)
+                    print("text of found item =",item2.text() )
+            
+            for x in range(self.listAlgorithm.count()):
+                if(x==self.checkrow2):
+                    self.listAlgorithm.item(x).setFlags(Qt.NoItemFlags)
+                else:
+                    print("Alpha Miner Disabled")
+        
+        elif len(self.total_items)==2:
+            for x in range(self.listAlgorithm.count()):
+                self.listAlgorithm.item(x).setFlags(Qt.ItemIsEnabled)
+
+            items = self.listAlgorithm.findItems("token_based_replay",Qt.MatchContains)
+            if len(items) > 0:
+
+                 for item in items:
+                    print("row number of found item =",self.listAlgorithm.row(item))
+                    self.checkrow= self.listAlgorithm.row(item)
+                    print("text of found item =",item.text() )
+            
+            for x in range(self.listAlgorithm.count()):
+                if(x==self.checkrow):
+                    print("Alpha Miner Enabled")
+                else:
+                    self.listAlgorithm.item(x).setFlags(Qt.NoItemFlags)
 
     
     def run_algorithm(self):

@@ -36,7 +36,7 @@ class Ui_MainWindow(object):
         self.buttonImportlog.setGeometry(QtCore.QRect(30, 30, 171, 31))
         self.buttonImportlog.setObjectName("buttonImportlog")
         self.listImportedLog = QtWidgets.QListWidget(self.tab)
-        self.listImportedLog.setGeometry(QtCore.QRect(30, 81, 291, 181))
+        self.listImportedLog.setGeometry(QtCore.QRect(30, 81, 450, 181))
         self.listImportedLog.setObjectName("listImportedLog")
         self.buttonSelectDocker = QtWidgets.QPushButton(self.tab)
         self.buttonSelectDocker.setGeometry(QtCore.QRect(30, 290, 150, 41))
