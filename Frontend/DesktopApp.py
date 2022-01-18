@@ -88,7 +88,7 @@ class FirstApp(Ui_MainWindow):
 
         self.log_name_selected = " "
         self.listImportedLog.itemClicked.connect(self.printItemText)
-        
+        self.buttonExport.setEnabled(True)
 
     def printItemText(self):
         self.items = self.listImportedLog.selectedItems()
@@ -143,6 +143,10 @@ class FirstApp(Ui_MainWindow):
 
 
     def exportFiles(self):
+        with open('config.json', 'r') as f:
+            config = json.load(f)
+        self.path = config["PATHS"]["VOLUME_PATH_MAC"]+'input_files/'
+        print("self.path",self.path)
     
         if len(self.total_items) == 1:
 
@@ -379,12 +383,10 @@ class FirstApp(Ui_MainWindow):
                 if not file.startswith('.'):
                     self.listImportedLog.addItem(file)
             self.buttonDisplay.setEnabled(True)
-            self.buttonExport.setEnabled(True)
 
         elif len(self.total_items) == 1 :
 
             print("Only item directory",self.input_file_path)
-            #files_input_path = os.listdir(input_path)
             logfile_path = self.input_file_path
             print("log file path:",logfile_path)
             shutil.copy(logfile_path,self.algo_input_path) 
@@ -394,11 +396,9 @@ class FirstApp(Ui_MainWindow):
 
             dock_manager = DockerManager()
         
-            #dock_manager.run_algorithm(self.algo_name_selected , self.log_name_selected, logfile_path)
             dock_manager.run_algorithm(self.algo_name_selected , self.total_items ,logfile_path)
 
 
-            # adding o/p files to import log screen 
             
             files_output_path = os.listdir(self.output_path)
 
@@ -410,7 +410,6 @@ class FirstApp(Ui_MainWindow):
                 if not file.startswith('.'):
                     self.listImportedLog.addItem(file)
             self.buttonDisplay.setEnabled(True)
-            self.buttonExport.setEnabled(True)
         else:
             pass
 
