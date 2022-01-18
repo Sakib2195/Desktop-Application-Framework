@@ -55,11 +55,8 @@ class FirstApp(Ui_MainWindow):
             self.listAlgorithm.addItem(algo)
 
         self.listAlgorithm.clicked.connect(self.algo_item_clicked)   
-        # MainWindow.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)
-        # enable custom window hint
         MainWindow.setWindowFlags(MainWindow.windowFlags() | QtCore.Qt.CustomizeWindowHint)
 
-# disable (but not hide) close button
         MainWindow.setWindowFlags(MainWindow.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
     
         
@@ -89,10 +86,7 @@ class FirstApp(Ui_MainWindow):
                 print("Choose a File")
                 
 
-            
-            
         self.log_name_selected = " "
-        #self.listImportedLog.clicked.connect(self.log_item_clicked)
         self.listImportedLog.itemClicked.connect(self.printItemText)
         
 
@@ -153,7 +147,6 @@ class FirstApp(Ui_MainWindow):
         if len(self.total_items) == 1:
 
             self.completeName = self.path
-            #self.completeName = self.output_path
             print("Complete name",self.completeName)
             fn= QFileDialog.getSaveFileName(caption='Export File')
             self.dest=fn[0]
@@ -314,10 +307,6 @@ class FirstApp(Ui_MainWindow):
             for x in range(self.listAlgorithm.count()):
                 self.listAlgorithm.item(x).setFlags(Qt.ItemIsEnabled)
                 
-                
-                
-
-                
             items2 = self.listAlgorithm.findItems("token_based_replay",Qt.MatchContains)
             if len(items2) > 0:
 
@@ -377,7 +366,6 @@ class FirstApp(Ui_MainWindow):
             print("log path ",log_path)
             shutil.copy(self.item1_path,self.algo_input_path)
             shutil.copy(self.item2_path,self.algo_input_path)
-            #Run docker file here
 
             dock_manager = DockerManager()
         

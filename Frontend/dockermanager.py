@@ -41,7 +41,6 @@ class DockerManager:
         )
         command = " ".join(log_name)
         print(type(log_name))
-        # print("command",command)
 
         container = self.client.api.create_container(
                             image= algo_name,
